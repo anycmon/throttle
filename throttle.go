@@ -17,7 +17,7 @@ type throttle struct {
 	limiter *rate.Limiter
 }
 
-func NewThrottle(limit rate.Limit, burst int) *throttle {
+func New(limit rate.Limit, burst int) *throttle {
 	return &throttle{limiter: rate.NewLimiter(limit, burst)}
 }
 
@@ -37,7 +37,7 @@ type multiThrottle struct {
 	throttles []Throttle
 }
 
-func NewMultiThrottle(throttles ...Throttle) Throttle {
+func NewMulti(throttles ...Throttle) Throttle {
 	byLimit := func(i, j int) bool {
 		return throttles[i].Limit() < throttles[j].Limit()
 	}
